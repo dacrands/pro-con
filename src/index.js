@@ -6,24 +6,23 @@ const conBtn = document.getElementById("conBtn");
 const conInput = document.getElementById("conInput");
 const conList = document.getElementById("conList");
 
-const PRO_BTN_CLASS = `
-  bg-teal-500 
-  hover:bg-teal-700 
+const BASE_BTN_CLASS = `
   text-white 
   font-bold 
   py-2 
   px-4 
   rounded
+  w-full
+`;
+
+const PRO_BTN_CLASS = `
+  bg-teal-500 
+  hover:bg-teal-700 
 `;
 
 const CON_BTN_CLASS = `
   bg-red-500 
-  hover:bg-red-700 
-  text-white 
-  font-bold 
-  py-2 
-  px-4 
-  rounded
+  hover:bg-red-700   
 `;
 
 const REMOVE_BTN_CLASS = `
@@ -41,8 +40,8 @@ const LIST_ITEM_CLASS = `
   my-1
 `;
 
-proBtn.className = PRO_BTN_CLASS;
-conBtn.className = CON_BTN_CLASS;
+proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
+conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
 
 function createList(listEl, inputEl) {
   const newPro = document.createElement("li");
