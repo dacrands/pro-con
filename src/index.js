@@ -44,17 +44,25 @@ proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
 conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
 
 function createList(listEl, inputEl) {
-  const newItem = createNewItem(inputEl);
-  const newBtn = createNewItemBtn();
-  newItem.appendChild(newBtn);
-  listEl.appendChild(newItem);
-  inputEl.value = "";
+  try {
+    const newItem = createNewItem(inputEl);
+    const newBtn = createNewItemBtn();
+    newItem.appendChild(newBtn);
+    listEl.appendChild(newItem);
+  } catch (err) {
+    console.error(err.message);
+  }
 }
 
 function createNewItem(inputEl) {
+  if (inputEl.value === "") {
+    alert(`Please enter a ${inputEl.name}`);
+    throw new Error("Empty input");
+  }
   const newItem = document.createElement("li");
   newItem.className = LIST_ITEM_CLASS;
   newItem.innerHTML = inputEl.value;
+  inputEl.value = "";
   return newItem;
 }
 
