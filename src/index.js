@@ -44,13 +44,8 @@ proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
 conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
 
 function createList(listEl, inputEl) {
-  const newBtn = document.createElement("button");
   const newItem = createNewItem(inputEl);
-  newBtn.innerHTML = "X";
-  newBtn.className = REMOVE_BTN_CLASS;
-  newBtn.onclick = e => {
-    e.target.parentElement.remove();
-  };
+  const newBtn = createNewItemBtn();
   newItem.appendChild(newBtn);
   listEl.appendChild(newItem);
   inputEl.value = "";
@@ -61,6 +56,16 @@ function createNewItem(inputEl) {
   newItem.className = LIST_ITEM_CLASS;
   newItem.innerHTML = inputEl.value;
   return newItem;
+}
+
+function createNewItemBtn() {
+  const newBtn = document.createElement("button");
+  newBtn.innerHTML = "X";
+  newBtn.className = REMOVE_BTN_CLASS;
+  newBtn.onclick = e => {
+    e.target.parentElement.remove();
+  };
+  return newBtn;
 }
 
 proBtn.onclick = () => createList(proList, proInput);
