@@ -31,15 +31,14 @@ const REMOVE_BTN_CLASS = `
   hover:bg-gray-400 
   text-gray-800 
   font-bold 
-  py-1 
-  px-2 
-  ml-1
-  rounded-l
+  text-xs
+  p-1
+  ml-3
+  rounded-full
 `;
 
-const LIST_ITEM_CLASS = `
-  py-1
-  my-3
+const LIST_ITEM_CLASS = `  
+  my-1
 `;
 
 proBtn.className = PRO_BTN_CLASS;
