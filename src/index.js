@@ -44,17 +44,17 @@ proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
 conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
 
 function createList(listEl, inputEl) {
-  const newPro = document.createElement("li");
+  const newItem = document.createElement("li");
   const newBtn = document.createElement("button");
-  newPro.className = LIST_ITEM_CLASS;
-  newPro.innerHTML = inputEl.value;
+  newItem.className = LIST_ITEM_CLASS;
+  newItem.innerHTML = inputEl.value;
   newBtn.innerHTML = "X";
   newBtn.className = REMOVE_BTN_CLASS;
   newBtn.onclick = e => {
     e.target.parentElement.remove();
   };
-  newPro.appendChild(newBtn);
-  listEl.appendChild(newPro);
+  newItem.appendChild(newBtn);
+  listEl.appendChild(newItem);
   inputEl.value = "";
 }
 
