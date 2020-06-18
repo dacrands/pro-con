@@ -67,6 +67,17 @@ function addItemToLocalStorage(text, type) {
   localStorage.setItem(type, JSON.stringify(items));
 }
 
+function removeItemFromLocalStorage(text, type) {
+  let items = JSON.parse(localStorage.getItem(type));
+  const index = items.indexOf(text);
+  if (!(index > -1)) {
+    console.error(`${text} is not in the ${pro} list.`);
+    return;
+  }
+  items.splice(index, 1);
+  localStorage.setItem(type, JSON.stringify(items));
+}
+
 function createList(listEl, inputEl) {
   try {
     const newItem = createNewItem(inputEl);
@@ -81,7 +92,8 @@ function createList(listEl, inputEl) {
 function createListItem(inputEl) {
   const newItem = document.createElement("li");
   newItem.className = LIST_ITEM_CLASS;
-  newItem.innerHTML = inputEl.value;
+  newItem.dataset.text = newItem.innerHTML = inputEl.value;
+  newItem.dataset.type = inputEl.name;
   inputEl.value = "";
   return newItem;
 }
@@ -92,6 +104,8 @@ function createNewItem(inputEl) {
     throw new Error("Empty input");
   }
   addItemToLocalStorage(inputEl.value, inputEl.name);
+  // Move to local storage call to prevent
+  // creating list item if it exists
   return createListItem(inputEl);
 }
 
@@ -100,7 +114,9 @@ function createNewItemBtn() {
   newBtn.innerHTML = "X";
   newBtn.className = REMOVE_BTN_CLASS;
   newBtn.onclick = e => {
-    e.target.parentElement.remove();
+    const parent = e.target.parentElement;
+    removeItemFromLocalStorage(parent.dataset.text, parent.dataset.type);
+    parent.remove();
   };
   return newBtn;
 }
