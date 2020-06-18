@@ -55,6 +55,23 @@ function initLocalStorage() {
 if (!localStorage.getItem("pro")) {
   console.log("Initializing local storage")
   initLocalStorage();
+} else {
+  buildListsFromLocalStorage();
+}
+
+function buildListsFromLocalStorage() {
+  const pros = JSON.parse(localStorage.getItem("pro")); 
+  const cons = JSON.parse(localStorage.getItem("con")); 
+  pros.forEach((pro) => {
+    proInput.value = pro;
+    let newItem = createListItem(proInput);
+    proList.appendChild(newItem);
+  })
+  cons.forEach((con) => {
+    conInput.value = con;
+    let newItem = createListItem(conInput);
+    conList.appendChild(newItem);
+  })
 }
 
 function addItemToLocalStorage(text, type) {
@@ -81,8 +98,6 @@ function removeItemFromLocalStorage(text, type) {
 function createList(listEl, inputEl) {
   try {
     const newItem = createNewItem(inputEl);
-    const newBtn = createNewItemBtn();
-    newItem.appendChild(newBtn);
     listEl.appendChild(newItem);
   } catch (err) {
     console.error(err.message);
@@ -91,9 +106,11 @@ function createList(listEl, inputEl) {
 
 function createListItem(inputEl) {
   const newItem = document.createElement("li");
+  const newBtn = createNewItemBtn();
   newItem.className = LIST_ITEM_CLASS;
   newItem.dataset.text = newItem.innerHTML = inputEl.value;
   newItem.dataset.type = inputEl.name;
+  newItem.appendChild(newBtn);
   inputEl.value = "";
   return newItem;
 }
