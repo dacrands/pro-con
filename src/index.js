@@ -43,6 +43,30 @@ const LIST_ITEM_CLASS = `
 proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
 conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
 
+//init local storage
+function initLocalStorage() {
+  localStorage.setItem("pro", "[]");
+  localStorage.setItem("con", "[]");
+}
+
+
+// Check if local storage exists
+// if not init self storage
+if (!localStorage.getItem("pro")) {
+  console.log("Initializing local storage")
+  initLocalStorage();
+}
+
+function addItemToLocalStorage(text, type, callback) {
+  let items = JSON.parse(localStorage.getItem(type));
+  if (items.includes(text)) {
+    alert(`You already have that in your ${type} list.`);
+    return;
+  }
+  items.push(text);
+  localStorage.setItem(type, JSON.stringify(items));
+}
+
 function createList(listEl, inputEl) {
   try {
     const newItem = createNewItem(inputEl);
@@ -54,16 +78,21 @@ function createList(listEl, inputEl) {
   }
 }
 
-function createNewItem(inputEl) {
-  if (inputEl.value === "") {
-    alert(`Please enter a ${inputEl.name}`);
-    throw new Error("Empty input");
-  }
+function createListItem(inputEl) {
   const newItem = document.createElement("li");
   newItem.className = LIST_ITEM_CLASS;
   newItem.innerHTML = inputEl.value;
   inputEl.value = "";
   return newItem;
+}
+
+function createNewItem(inputEl) {
+  if (inputEl.value === "") {
+    alert(`Please enter a ${inputEl.name}`);
+    throw new Error("Empty input");
+  }
+  addItemToLocalStorage(inputEl.value, inputEl.name);
+  return createListItem(inputEl);
 }
 
 function createNewItemBtn() {
