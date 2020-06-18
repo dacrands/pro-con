@@ -6,23 +6,26 @@ const conBtn = document.getElementById("conBtn");
 const conInput = document.getElementById("conInput");
 const conList = document.getElementById("conList");
 
+const clearListsBtn = document.getElementById("clearListsBtn");
+
 const BASE_BTN_CLASS = `
   text-white 
   font-bold 
   py-2 
   px-4 
   rounded
-  w-full
 `;
 
 const PRO_BTN_CLASS = `
   bg-teal-500 
   hover:bg-teal-700 
+  w-full
 `;
 
 const CON_BTN_CLASS = `
   bg-red-500 
   hover:bg-red-700   
+  w-full
 `;
 
 const REMOVE_BTN_CLASS = `
@@ -36,12 +39,20 @@ const REMOVE_BTN_CLASS = `
   rounded-full
 `;
 
+const CLEAR_BTN_CLASS = `
+  bg-orange-400
+  hover:bg-orange-500
+  mt-8
+  m-auto
+`;
+
 const LIST_ITEM_CLASS = `  
   my-1
 `;
 
 proBtn.className = BASE_BTN_CLASS + " " + PRO_BTN_CLASS;
 conBtn.className = BASE_BTN_CLASS + " " + CON_BTN_CLASS;
+clearListsBtn.className = BASE_BTN_CLASS + " " + CLEAR_BTN_CLASS;
 
 //init local storage
 function initLocalStorage() {
@@ -140,3 +151,12 @@ function createNewItemBtn() {
 
 proBtn.onclick = () => createList(proList, proInput);
 conBtn.onclick = () => createList(conList, conInput);
+clearListsBtn.onclick = () => {
+  const confirmClear = confirm("Are you sure you want to clear your lists?")
+  if (!confirmClear) {
+    return;
+  }
+  localStorage.clear();
+  initLocalStorage()
+  proList.innerHTML = conList.innerHTML = "";
+}
