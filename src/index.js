@@ -57,7 +57,7 @@ if (!localStorage.getItem("pro")) {
   initLocalStorage();
 }
 
-function addItemToLocalStorage(text, type, callback) {
+function addItemToLocalStorage(text, type) {
   let items = JSON.parse(localStorage.getItem(type));
   if (items.includes(text)) {
     alert(`You already have that in your ${type} list.`);
