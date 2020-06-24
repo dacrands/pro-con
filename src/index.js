@@ -85,14 +85,18 @@ function buildListsFromLocalStorage() {
   })
 }
 
-function addItemToLocalStorage(text, type) {
+function addItemToLocalStorage(inputEl) {
+  const type = inputEl.name;
+  const text = inputEl.value;
   let items = JSON.parse(localStorage.getItem(type));
   if (items.includes(text)) {
     alert(`You already have that in your ${type} list.`);
+    inputEl.value = "";
     return;
   }
   items.push(text);
   localStorage.setItem(type, JSON.stringify(items));
+  return createListItem(inputEl);
 }
 
 function removeItemFromLocalStorage(text, type) {
@@ -131,10 +135,7 @@ function createNewItem(inputEl) {
     alert(`Please enter a ${inputEl.name}`);
     throw new Error("Empty input");
   }
-  addItemToLocalStorage(inputEl.value, inputEl.name);
-  // Move to local storage call to prevent
-  // creating list item if it exists
-  return createListItem(inputEl);
+  return addItemToLocalStorage(inputEl);  
 }
 
 function createNewItemBtn() {
