@@ -103,7 +103,7 @@ function removeItemFromLocalStorage(text, type) {
   let items = JSON.parse(localStorage.getItem(type));
   const index = items.indexOf(text);
   if (!(index > -1)) {
-    console.error(`${text} is not in the ${pro} list.`);
+    console.error(`${text} is not in the ${type} list.`);
     return;
   }
   items.splice(index, 1);
