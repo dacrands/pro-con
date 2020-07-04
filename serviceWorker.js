@@ -3,6 +3,7 @@ const staticProCon = "pro-con-app-v1";
 const assets = [
     "/",
     "/index.html",
+    "/css/tailwind.min.css",
     "/js/app.js"
 ]
 
